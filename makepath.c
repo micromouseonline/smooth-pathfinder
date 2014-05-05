@@ -129,7 +129,9 @@ void makeSimplePath(const char * s) {
           x = 2;
           state = PathOrtho_F;
         } else if (c == 'R') {
-          state = PathOrtho_RR;
+          emitCommand(SS90ER);
+          emitCommand(FWD1);
+          state = PathOrtho_R;
         } else if (c == 'L') {
           emitCommand(SS90ER);
           emitCommand(FWD1);
@@ -153,53 +155,15 @@ void makeSimplePath(const char * s) {
           emitCommand(FWD1);
           state = PathOrtho_R;
         } else if (c == 'L') {
-          state = PathOrtho_LL;
+          emitCommand(SS90EL);
+          emitCommand(FWD1);
+          state = PathOrtho_L;
         } else if (c == 'S') {
           emitCommand(SS90EL);
           emitCommand(FWD1);
           state = PathStop;
         } else {
           emitCommand(CMD_ERROR_03);
-          state = PathStop;
-        }
-        break;
-      case PathOrtho_RR:
-        if (c == 'F') {
-          emitCommand(SS180R);
-          x = 2;
-          state = PathOrtho_F;
-        } else if (c == 'R') {
-          emitCommand(CMD_ERROR_04);
-          state = PathStop;
-        } else if (c == 'L') {
-          emitCommand(CMD_ERROR_04);
-          state = PathStop;
-        } else if (c == 'S') {
-          emitCommand(SS180R);
-          emitCommand(FWD1);
-          state = PathStop;
-        } else {
-          emitCommand(CMD_ERROR_04);
-          state = PathStop;
-        }
-        break;
-      case PathOrtho_LL:
-        if (c == 'F') {
-          emitCommand(SS180L);
-          x = 2;
-          state = PathOrtho_F;
-        } else if (c == 'R') {
-          emitCommand(CMD_ERROR_05);
-          state = PathStop;
-        } else if (c == 'L') {
-          emitCommand(CMD_ERROR_05);
-          state = PathStop;
-        } else if (c == 'S') {
-          emitCommand(SS180L);
-          emitCommand(FWD1);
-          state = PathStop;
-        } else {
-          emitCommand(CMD_ERROR_05);
           state = PathStop;
         }
         break;
